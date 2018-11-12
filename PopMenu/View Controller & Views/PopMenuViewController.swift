@@ -58,6 +58,9 @@ final public class PopMenuViewController: UIViewController {
         return calculateContentFittingFrame()
     }()
     
+    //MARK: mleavy - selected index property
+    public var selectedActionIndex: Int?
+    
     // MARK: - Configurations
     
     /// Determines whether to dismiss menu after an action is selected.
@@ -476,6 +479,20 @@ extension PopMenuViewController {
                 actionsView.topAnchor.constraint(equalTo: scrollView.topAnchor),
                 actionsView.heightAnchor.constraint(equalToConstant: scrollView.contentSize.height)
             ])
+            
+            //MARK: mleavy - scroll to selected index
+            view.layoutIfNeeded()
+            if let selectedIndex = selectedActionIndex {
+                var offset = appearance.popMenuActionHeight * CGFloat(selectedIndex)
+                offset -= scrollView.frame.size.height / 2 - appearance.popMenuActionHeight / 2
+                let maxOffset = CGPoint(x: 0, y: scrollView.contentSize.height - scrollView.frame.size.height + scrollView.contentInset.bottom)
+                offset = min(offset, maxOffset.y)
+                if offset > 0 {
+                    let bottomOffset = CGPoint(x: 0, y: offset)
+                    scrollView.setContentOffset(bottomOffset, animated: false)
+                }
+            }
+            
         } else {
             // Not scrollable
             actionsView.addGestureRecognizer(panGestureForMenu)
@@ -536,6 +553,9 @@ extension PopMenuViewController {
     @objc fileprivate func menuDidTap(_ gesture: UITapGestureRecognizer) {
         guard let attachedView = gesture.view, let index = actions.index(where: { $0.view.isEqual(attachedView) }) else { return }
 
+        //MARK: mleavy - set selected index
+        selectedActionIndex = index
+        
         actionDidSelect(at: index)
     }
     
