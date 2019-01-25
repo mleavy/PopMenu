@@ -14,7 +14,7 @@ import UIKit
     @objc optional func popMenuDidSelectItem(_ popMenuViewController: PopMenuViewController, at index: Int)
 }
 
-final public class PopMenuViewController: UIViewController {
+public class PopMenuViewController: UIViewController {
     
     // MARK: - Properties
     
