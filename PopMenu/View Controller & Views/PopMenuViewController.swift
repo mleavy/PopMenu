@@ -14,7 +14,7 @@ import UIKit
     @objc optional func popMenuDidSelectItem(_ popMenuViewController: PopMenuViewController, at index: Int)
 }
 
-public class PopMenuViewController: UIViewController {
+open class PopMenuViewController: UIViewController {
     
     // MARK: - Properties
     
@@ -144,7 +144,7 @@ public class PopMenuViewController: UIViewController {
     }
     
     /// Load view entry point.
-    public override func loadView() {
+    open override func loadView() {
         super.loadView()
 
         view.backgroundColor = .clear
@@ -170,12 +170,12 @@ public class PopMenuViewController: UIViewController {
     
     // MARK: - Status Bar Appearance
     
-    public override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+    open override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return .fade
     }
     
     /// Set status bar style.
-    public override var preferredStatusBarStyle: UIStatusBarStyle {
+    open override var preferredStatusBarStyle: UIStatusBarStyle {
         // If style defined, return
         if let statusBarStyle = appearance.popMenuStatusBarStyle {
             return statusBarStyle
@@ -205,7 +205,7 @@ public class PopMenuViewController: UIViewController {
     /// - Parameters:
     ///   - size: Changed size
     ///   - coordinator: Coordinator that manages the container
-    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    open override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         coordinator.animate(alongsideTransition: { context in
             self.configureBackgroundView()
             self.contentFrame = self.calculateContentFittingFrame()
